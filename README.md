@@ -3,7 +3,7 @@ A template for a Blazor SPA, with multiple virtual pages.
 A Single Page Application.
 
 Demostrates using multiple paths to the one page.  
-MavMenu is just a menu with each item a different path to the same page.  
+NavMenu is just a menu with each item a different path to the same page.  
 eg /Page/First  v /Page/Second etc.  
 Conditional HTML depending upon the path used.
 
