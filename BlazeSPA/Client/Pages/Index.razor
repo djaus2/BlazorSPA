@@ -81,9 +81,14 @@
         StateHasChanged();
     }
 
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        return base.OnAfterRenderAsync(firstRender);
+    }
 
-    //protected override void OnInitialized()
-    //{
-    //    base.OnInitialized();
-    //}
+
+        //protected override void OnInitialized()
+        //{
+        //    base.OnInitialized();
+        //}
 }
