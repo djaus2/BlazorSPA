@@ -1,0 +1,89 @@
+﻿@page "/"
+@page "/Page/First"
+@page "/Page/Second"
+@page "/Page/Third"
+@inject NavigationManager MyNavigationManager
+
+<h1>@Heading</h1>
+
+<h4>This page is @target</h4>
+
+@if (target == "")
+{
+    <h2>First</h2>
+}
+@if (target == "First")
+{
+    <h2>First</h2>
+}
+@if (target == "Second")
+{
+    <h2>Second</h2>
+}
+@if (target == "Third")
+{
+    <h2>Third</h2>
+}
+
+@code{
+    string target = "";
+    string indexHeading = "Index";
+    string firstHeading = "1st Page";
+    string secondHeading = "2nd Page";
+    string thirdHeading = "3rd Page";
+    string Heading = "Index";
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyNavigationManager.LocationChanged += LocationChanged;
+        await base.OnInitializedAsync();
+        string path = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
+        GetPageHeading(path);
+    }
+
+    void  GetPageHeading(string path)
+    {
+        if (path == "")
+        {
+            target = "Index";
+        }
+        else
+        {
+            string[] parts = path.Split(new char[] { '/' });
+            target = parts.Last();
+        }
+        switch (target)
+        {
+            case "Index":
+                Heading = indexHeading;
+                break;
+            case "First":
+                Heading = firstHeading;
+                break;
+            case "Second":
+                Heading = secondHeading;
+                break;
+            case "Third":
+                Heading = thirdHeading;
+                break;
+        }
+    }
+
+    public async override Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        string location = e.Location;
+        GetPageHeading(location);
+        StateHasChanged();
+    }
+
+
+    //protected override void OnInitialized()
+    //{
+    //    base.OnInitialized();
+    //}
+}
